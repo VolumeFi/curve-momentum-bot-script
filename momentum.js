@@ -403,7 +403,7 @@ async function getNewBlocks(fromBlock) {
             }
 
             if (withdrawDeposit) {
-                withdrawDeposit["min_amount0"] = await getMinAmount(deposit.depositor, withdrawDeposit.deposit_id);
+                withdrawDeposit["expected"] = await getMinAmount(deposit.depositor, withdrawDeposit.deposit_id);
                 withdrawDeposits.push(withdrawDeposit);
             }
 
