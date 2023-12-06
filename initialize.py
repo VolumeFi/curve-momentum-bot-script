@@ -29,17 +29,21 @@ async def momentum_bot_init(config: dict):
         # Job create
         job_id = config['JOB_ID']
         chain_type = config['CHAIN_TYPE']
+        creator = wallet.key.acc_address
+        signers = [wallet.key.acc_address]
         chain_reference_id = config['CHAIN_REFERENCE_ID']
         result = await paloma.job_scheduler.create_job(
             wallet, job_id, pancakeswap_lob_vyper, pancakeswap_lob_abi, payload,
-            chain_type, chain_reference_id)
+            chain_type, chain_reference_id, creator, signers)
         print(result)
         time.sleep(6)
 
         # Instantiate
         initialize_msg = {
             "retry_delay": 30,
-            "job_id": job_id
+            "job_id": job_id,
+            "creator": creator,
+            "signers": signers,
         }
         code_id = os.environ['LOB_CW_CODE_ID']
         funds = Coins()
